@@ -7,6 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const PHOTOPRISM_URL = process.env.PHOTOPRISM_URL || 'http://localhost:2342';
 const PHOTOPRISM_TOKEN = process.env.PHOTOPRISM_TOKEN;
+const ALBUM_UID = process.env.ALBUM_UID || '';
 
 // Middleware
 app.use(cors());
@@ -64,9 +65,10 @@ app.get('/api/photos', async (req, res) => {
       merged = 'true',
       primary = 'true',
       q = '',
+      s = ALBUM_UID,
     } = req.query;
 
-    const endpoint = `/api/v1/photos?count=${count}&offset=${offset}&order=${order}&merged=${merged}&primary=${primary}${q ? `&q=${encodeURIComponent(q)}` : ''}`;
+    const endpoint = `/api/v1/photos?count=${count}&offset=${offset}&order=${order}&merged=${merged}&primary=${primary}${q ? `&q=${encodeURIComponent(q)}` : ''}${s ? `&s=${encodeURIComponent(s)}` : ''}`;
     const result = await photoprismRequest(endpoint);
 
     res.json({
@@ -88,6 +90,7 @@ app.get('/api/photos/all', async (req, res) => {
     const {
       order = 'newest',
       q = '',
+      s = ALBUM_UID,
     } = req.query;
 
     let allPhotos = [];
@@ -97,7 +100,7 @@ app.get('/api/photos/all', async (req, res) => {
     let hasMore = true;
 
     while (hasMore) {
-      const endpoint = `/api/v1/photos?count=${limit}&offset=${offset}&order=${order}&merged=true&primary=true${q ? `&q=${encodeURIComponent(q)}` : ''}`;
+      const endpoint = `/api/v1/photos?count=${limit}&offset=${offset}&order=${order}&merged=true&primary=true${q ? `&q=${encodeURIComponent(q)}` : ''}${s ? `&s=${encodeURIComponent(s)}` : ''}`;
       const result = await photoprismRequest(endpoint);
 
       allPhotos = allPhotos.concat(result.data);
