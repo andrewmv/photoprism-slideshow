@@ -61,7 +61,7 @@ app.get('/api/photos', async (req, res) => {
     const {
       count = 1000,
       offset = 0,
-      order = 'newest',
+      order = 'random',
       merged = 'true',
       primary = 'true',
       q = '',
@@ -88,7 +88,7 @@ app.get('/api/photos', async (req, res) => {
 app.get('/api/photos/all', async (req, res) => {
   try {
     const {
-      order = 'newest',
+      order = 'random',
       q = '',
       s = ALBUM_UID,
     } = req.query;

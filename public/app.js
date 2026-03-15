@@ -160,7 +160,7 @@ class SlideshowApp {
         this.loading.classList.remove('hidden');
         
         try {
-            const response = await fetch('/api/photos/all?order=newest');
+            const response = await fetch('/api/photos/all?order=random');
             if (!response.ok) {
                 throw new Error(`Failed to load photos: ${response.status}`);
             }
