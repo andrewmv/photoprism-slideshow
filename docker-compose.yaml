@@ -1,4 +1,5 @@
-name: prism-slideshow
+version: '3.8'
+#name: prism-slideshow
 services:
   server:
     build: .
