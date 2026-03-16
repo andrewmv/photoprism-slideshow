@@ -1,0 +1,10 @@
+name: prism-slideshow
+services:
+  server:
+    build: .
+    container_name: photoprism-slideshow
+    ports:
+      - '3032:3000'
+    env_file:
+      - .env
+    restart: unless-stopped
