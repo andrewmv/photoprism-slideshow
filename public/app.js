@@ -160,7 +160,7 @@ class SlideshowApp {
         this.loading.classList.remove('hidden');
         
         try {
-            const response = await fetch('/api/photos/all?order=random');
+            const response = await fetch('api/photos/all?order=random');
             if (!response.ok) {
                 throw new Error(`Failed to load photos: ${response.status}`);
             }
@@ -220,7 +220,7 @@ class SlideshowApp {
     getImageUrl(hash) {
         if (!hash || !this.previewToken) return '';
         // Use fit_1920 for full-screen quality (can be changed to fit_2560 or fit_3840 for higher quality)
-        return `/api/v1/t/${hash}/${this.previewToken}/fit_1920`;
+        return `api/v1/t/${hash}/${this.previewToken}/fit_1920`;
     }
 
     async showPhoto(index) {
